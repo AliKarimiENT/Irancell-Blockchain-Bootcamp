@@ -134,10 +134,10 @@
 	},
 	"sources": {
 		"contracts/Multi_Sign_Wallet.sol": {
-			"keccak256": "0x0ee3b676b87c5e9842e47fde98eafca875ce1a84c5c8e08b7921a677df3624fa",
+			"keccak256": "0x4a022d6d362d80d91d2bb12cb1258e262871f4c808bf53cef0088971d4cd08c6",
 			"urls": [
-				"bzz-raw://164928b973c8d9f91e6ed3f1e58677b2ef66a2db13b17d89bfd12beb57a16acc",
-				"dweb:/ipfs/QmdJWcHLd7ztHFSxKijp3JQ3wFTngVruYrcvD5wxj2xgwe"
+				"bzz-raw://99c1845924a5119124775f87d80d06f2c84019bcbb1d8728dd43ced717d90a0b",
+				"dweb:/ipfs/QmZZnynEoFLBe8ySe1rf8cMtCtFJfSWEBrNAGRiNE8f15Z"
 			]
 		}
 	},

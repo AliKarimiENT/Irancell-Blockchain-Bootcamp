@@ -29,4 +29,15 @@ contract MultiSignWallet {
     event TransactionCreated(address _from , address _to , uint amount , uint transactionId);
     event TransactionSigned(address _by,uint transactionId);
     event TransactionCompleted(address _from,address _to,uint amount,uint transactionId);
+
+    modifier isOwner() {
+        require(msg.sender==_owner);
+        _;
+    }
+    // if modifier doesn't have any parameters we can remove the parantheses
+    modifier validOwner {
+        require (msg.sender == _owner || _owners[msg.sender] == 1);
+        _;
+    }
+    
 }
