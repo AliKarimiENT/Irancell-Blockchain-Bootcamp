@@ -1,0 +1,1117 @@
+{
+	"id": "ff0d724af11abd0bcbdcee217855c18c",
+	"_format": "hh-sol-build-info-1",
+	"solcVersion": "0.8.7",
+	"solcLongVersion": "0.8.7+commit.e28d00a7",
+	"input": {
+		"language": "Solidity",
+		"sources": {
+			"contracts/Multi_Sign_Wallet.sol": {
+				"content": "pragma solidity ^0.8.*;\r\ncontract MultiSignWallet {\r\n    address private _owner;\r\n    // a mapping from address to uint which contains two part\r\n    // first part is our owner address\r\n    // second part is an amount that owener wants to add on transaction\r\n    mapping (address => uint8) private _owners;\r\n    uint8 constant MIN_SIGNATURE = 2;\r\n    \r\n    struct Transaction {\r\n        // whenever amount of money want to exit from a smart contract or enter a contract\r\n        // its datatype must be payable\r\n        // if we don't set them payable > we must set our funtion to payable type\r\n        address payable sender;\r\n        address payable reciever;\r\n        uint amount;\r\n        bool isSigned;\r\n        uint8 signatureCount;\r\n    }\r\n\r\n    Transaction[] _transactions;\r\n    // a mapping from an address to a uint , which will show us that a specific address has signed a transaction or not\r\n    mapping(address=>uint8) signed;\r\n    // list of pending transactions that have not executed completely becuase number of signatures is not enough\r\n    uint[] private _pendingTransactions;\r\n\r\n    //define events\r\n    event DepositFuncds(address _from , uint amount);\r\n    event TransactionCreated(address _from , address _to , uint amount , uint transactionId);\r\n    \r\n}"
+			}
+		},
+		"settings": {
+			"optimizer": {
+				"enabled": false,
+				"runs": 200
+			},
+			"outputSelection": {
+				"*": {
+					"": [
+						"ast"
+					],
+					"*": [
+						"abi",
+						"metadata",
+						"devdoc",
+						"userdoc",
+						"storageLayout",
+						"evm.legacyAssembly",
+						"evm.bytecode",
+						"evm.deployedBytecode",
+						"evm.methodIdentifiers",
+						"evm.gasEstimates",
+						"evm.assembly"
+					]
+				}
+			}
+		}
+	},
+	"output": {
+		"contracts": {
+			"contracts/Multi_Sign_Wallet.sol": {
+				"MultiSignWallet": {
+					"abi": [
+						{
+							"anonymous": false,
+							"inputs": [
+								{
+									"indexed": false,
+									"internalType": "address",
+									"name": "_from",
+									"type": "address"
+								},
+								{
+									"indexed": false,
+									"internalType": "uint256",
+									"name": "amount",
+									"type": "uint256"
+								}
+							],
+							"name": "DepositFuncds",
+							"type": "event"
+						},
+						{
+							"anonymous": false,
+							"inputs": [
+								{
+									"indexed": false,
+									"internalType": "address",
+									"name": "_from",
+									"type": "address"
+								},
+								{
+									"indexed": false,
+									"internalType": "address",
+									"name": "_to",
+									"type": "address"
+								},
+								{
+									"indexed": false,
+									"internalType": "uint256",
+									"name": "amount",
+									"type": "uint256"
+								},
+								{
+									"indexed": false,
+									"internalType": "uint256",
+									"name": "transactionId",
+									"type": "uint256"
+								}
+							],
+							"name": "TransactionCreated",
+							"type": "event"
+						}
+					],
+					"devdoc": {
+						"kind": "dev",
+						"methods": {},
+						"version": 1
+					},
+					"evm": {
+						"assembly": "    /* \"contracts/Multi_Sign_Wallet.sol\":25:1276  contract MultiSignWallet {\r... */\n  mstore(0x40, 0x80)\n  callvalue\n  dup1\n  iszero\n  tag_1\n  jumpi\n  0x00\n  dup1\n  revert\ntag_1:\n  pop\n  dataSize(sub_0)\n  dup1\n  dataOffset(sub_0)\n  0x00\n  codecopy\n  0x00\n  return\nstop\n\nsub_0: assembly {\n        /* \"contracts/Multi_Sign_Wallet.sol\":25:1276  contract MultiSignWallet {\r... */\n      mstore(0x40, 0x80)\n      0x00\n      dup1\n      revert\n\n    auxdata: 0xa26469706673582212209e31a1468c2ac59b1418c3768deddaed91224eeaa4ed1c706b0888f5ce0f669264736f6c63430008070033\n}\n",
+						"bytecode": {
+							"functionDebugData": {},
+							"generatedSources": [],
+							"linkReferences": {},
+							"object": "6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea26469706673582212209e31a1468c2ac59b1418c3768deddaed91224eeaa4ed1c706b0888f5ce0f669264736f6c63430008070033",
+							"opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE CALLVALUE DUP1 ISZERO PUSH1 0xF JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH1 0x3F DUP1 PUSH1 0x1D PUSH1 0x0 CODECOPY PUSH1 0x0 RETURN INVALID PUSH1 0x80 PUSH1 0x40 MSTORE PUSH1 0x0 DUP1 REVERT INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 SWAP15 BALANCE LOG1 CHAINID DUP13 0x2A 0xC5 SWAP12 EQ XOR 0xC3 PUSH23 0x8DEDDAED91224EEAA4ED1C706B0888F5CE0F669264736F PUSH13 0x63430008070033000000000000 ",
+							"sourceMap": "25:1251:0:-:0;;;;;;;;;;;;;;;;;;;"
+						},
+						"deployedBytecode": {
+							"functionDebugData": {},
+							"generatedSources": [],
+							"immutableReferences": {},
+							"linkReferences": {},
+							"object": "6080604052600080fdfea26469706673582212209e31a1468c2ac59b1418c3768deddaed91224eeaa4ed1c706b0888f5ce0f669264736f6c63430008070033",
+							"opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE PUSH1 0x0 DUP1 REVERT INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 SWAP15 BALANCE LOG1 CHAINID DUP13 0x2A 0xC5 SWAP12 EQ XOR 0xC3 PUSH23 0x8DEDDAED91224EEAA4ED1C706B0888F5CE0F669264736F PUSH13 0x63430008070033000000000000 ",
+							"sourceMap": "25:1251:0:-:0;;;;;"
+						},
+						"gasEstimates": {
+							"creation": {
+								"codeDepositCost": "12600",
+								"executionCost": "66",
+								"totalCost": "12666"
+							}
+						},
+						"legacyAssembly": {
+							".code": [
+								{
+									"begin": 25,
+									"end": 1276,
+									"name": "PUSH",
+									"source": 0,
+									"value": "80"
+								},
+								{
+									"begin": 25,
+									"end": 1276,
+									"name": "PUSH",
+									"source": 0,
+									"value": "40"
+								},
+								{
+									"begin": 25,
+									"end": 1276,
+									"name": "MSTORE",
+									"source": 0
+								},
+								{
+									"begin": 25,
+									"end": 1276,
+									"name": "CALLVALUE",
+									"source": 0
+								},
+								{
+									"begin": 25,
+									"end": 1276,
+									"name": "DUP1",
+									"source": 0
+								},
+								{
+									"begin": 25,
+									"end": 1276,
+									"name": "ISZERO",
+									"source": 0
+								},
+								{
+									"begin": 25,
+									"end": 1276,
+									"name": "PUSH [tag]",
+									"source": 0,
+									"value": "1"
+								},
+								{
+									"begin": 25,
+									"end": 1276,
+									"name": "JUMPI",
+									"source": 0
+								},
+								{
+									"begin": 25,
+									"end": 1276,
+									"name": "PUSH",
+									"source": 0,
+									"value": "0"
+								},
+								{
+									"begin": 25,
+									"end": 1276,
+									"name": "DUP1",
+									"source": 0
+								},
+								{
+									"begin": 25,
+									"end": 1276,
+									"name": "REVERT",
+									"source": 0
+								},
+								{
+									"begin": 25,
+									"end": 1276,
+									"name": "tag",
+									"source": 0,
+									"value": "1"
+								},
+								{
+									"begin": 25,
+									"end": 1276,
+									"name": "JUMPDEST",
+									"source": 0
+								},
+								{
+									"begin": 25,
+									"end": 1276,
+									"name": "POP",
+									"source": 0
+								},
+								{
+									"begin": 25,
+									"end": 1276,
+									"name": "PUSH #[$]",
+									"source": 0,
+									"value": "0000000000000000000000000000000000000000000000000000000000000000"
+								},
+								{
+									"begin": 25,
+									"end": 1276,
+									"name": "DUP1",
+									"source": 0
+								},
+								{
+									"begin": 25,
+									"end": 1276,
+									"name": "PUSH [$]",
+									"source": 0,
+									"value": "0000000000000000000000000000000000000000000000000000000000000000"
+								},
+								{
+									"begin": 25,
+									"end": 1276,
+									"name": "PUSH",
+									"source": 0,
+									"value": "0"
+								},
+								{
+									"begin": 25,
+									"end": 1276,
+									"name": "CODECOPY",
+									"source": 0
+								},
+								{
+									"begin": 25,
+									"end": 1276,
+									"name": "PUSH",
+									"source": 0,
+									"value": "0"
+								},
+								{
+									"begin": 25,
+									"end": 1276,
+									"name": "RETURN",
+									"source": 0
+								}
+							],
+							".data": {
+								"0": {
+									".auxdata": "a26469706673582212209e31a1468c2ac59b1418c3768deddaed91224eeaa4ed1c706b0888f5ce0f669264736f6c63430008070033",
+									".code": [
+										{
+											"begin": 25,
+											"end": 1276,
+											"name": "PUSH",
+											"source": 0,
+											"value": "80"
+										},
+										{
+											"begin": 25,
+											"end": 1276,
+											"name": "PUSH",
+											"source": 0,
+											"value": "40"
+										},
+										{
+											"begin": 25,
+											"end": 1276,
+											"name": "MSTORE",
+											"source": 0
+										},
+										{
+											"begin": 25,
+											"end": 1276,
+											"name": "PUSH",
+											"source": 0,
+											"value": "0"
+										},
+										{
+											"begin": 25,
+											"end": 1276,
+											"name": "DUP1",
+											"source": 0
+										},
+										{
+											"begin": 25,
+											"end": 1276,
+											"name": "REVERT",
+											"source": 0
+										}
+									]
+								}
+							}
+						},
+						"methodIdentifiers": {}
+					},
+					"metadata": "{\"compiler\":{\"version\":\"0.8.7+commit.e28d00a7\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_from\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"DepositFuncds\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_from\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"transactionId\",\"type\":\"uint256\"}],\"name\":\"TransactionCreated\",\"type\":\"event\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/Multi_Sign_Wallet.sol\":\"MultiSignWallet\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/Multi_Sign_Wallet.sol\":{\"keccak256\":\"0xf3a9163f71c1275308bb3c422e4a21024af702746cf9414d12d4e4f974436f72\",\"urls\":[\"bzz-raw://87e0e790b702ecd8363edfd46f49b2d68c99a2dc45a76e17527fe73b9e204de5\",\"dweb:/ipfs/QmXAVvSthMWxG7dPBocVd89mHLRzbqrf4bzFqhYoyRcAcb\"]}},\"version\":1}",
+					"storageLayout": {
+						"storage": [
+							{
+								"astId": 3,
+								"contract": "contracts/Multi_Sign_Wallet.sol:MultiSignWallet",
+								"label": "_owner",
+								"offset": 0,
+								"slot": "0",
+								"type": "t_address"
+							},
+							{
+								"astId": 7,
+								"contract": "contracts/Multi_Sign_Wallet.sol:MultiSignWallet",
+								"label": "_owners",
+								"offset": 0,
+								"slot": "1",
+								"type": "t_mapping(t_address,t_uint8)"
+							},
+							{
+								"astId": 25,
+								"contract": "contracts/Multi_Sign_Wallet.sol:MultiSignWallet",
+								"label": "_transactions",
+								"offset": 0,
+								"slot": "2",
+								"type": "t_array(t_struct(Transaction)21_storage)dyn_storage"
+							},
+							{
+								"astId": 29,
+								"contract": "contracts/Multi_Sign_Wallet.sol:MultiSignWallet",
+								"label": "signed",
+								"offset": 0,
+								"slot": "3",
+								"type": "t_mapping(t_address,t_uint8)"
+							},
+							{
+								"astId": 32,
+								"contract": "contracts/Multi_Sign_Wallet.sol:MultiSignWallet",
+								"label": "_pendingTransactions",
+								"offset": 0,
+								"slot": "4",
+								"type": "t_array(t_uint256)dyn_storage"
+							}
+						],
+						"types": {
+							"t_address": {
+								"encoding": "inplace",
+								"label": "address",
+								"numberOfBytes": "20"
+							},
+							"t_address_payable": {
+								"encoding": "inplace",
+								"label": "address payable",
+								"numberOfBytes": "20"
+							},
+							"t_array(t_struct(Transaction)21_storage)dyn_storage": {
+								"base": "t_struct(Transaction)21_storage",
+								"encoding": "dynamic_array",
+								"label": "struct MultiSignWallet.Transaction[]",
+								"numberOfBytes": "32"
+							},
+							"t_array(t_uint256)dyn_storage": {
+								"base": "t_uint256",
+								"encoding": "dynamic_array",
+								"label": "uint256[]",
+								"numberOfBytes": "32"
+							},
+							"t_bool": {
+								"encoding": "inplace",
+								"label": "bool",
+								"numberOfBytes": "1"
+							},
+							"t_mapping(t_address,t_uint8)": {
+								"encoding": "mapping",
+								"key": "t_address",
+								"label": "mapping(address => uint8)",
+								"numberOfBytes": "32",
+								"value": "t_uint8"
+							},
+							"t_struct(Transaction)21_storage": {
+								"encoding": "inplace",
+								"label": "struct MultiSignWallet.Transaction",
+								"members": [
+									{
+										"astId": 12,
+										"contract": "contracts/Multi_Sign_Wallet.sol:MultiSignWallet",
+										"label": "sender",
+										"offset": 0,
+										"slot": "0",
+										"type": "t_address_payable"
+									},
+									{
+										"astId": 14,
+										"contract": "contracts/Multi_Sign_Wallet.sol:MultiSignWallet",
+										"label": "reciever",
+										"offset": 0,
+										"slot": "1",
+										"type": "t_address_payable"
+									},
+									{
+										"astId": 16,
+										"contract": "contracts/Multi_Sign_Wallet.sol:MultiSignWallet",
+										"label": "amount",
+										"offset": 0,
+										"slot": "2",
+										"type": "t_uint256"
+									},
+									{
+										"astId": 18,
+										"contract": "contracts/Multi_Sign_Wallet.sol:MultiSignWallet",
+										"label": "isSigned",
+										"offset": 0,
+										"slot": "3",
+										"type": "t_bool"
+									},
+									{
+										"astId": 20,
+										"contract": "contracts/Multi_Sign_Wallet.sol:MultiSignWallet",
+										"label": "signatureCount",
+										"offset": 1,
+										"slot": "3",
+										"type": "t_uint8"
+									}
+								],
+								"numberOfBytes": "128"
+							},
+							"t_uint256": {
+								"encoding": "inplace",
+								"label": "uint256",
+								"numberOfBytes": "32"
+							},
+							"t_uint8": {
+								"encoding": "inplace",
+								"label": "uint8",
+								"numberOfBytes": "1"
+							}
+						}
+					},
+					"userdoc": {
+						"kind": "user",
+						"methods": {},
+						"version": 1
+					}
+				}
+			}
+		},
+		"errors": [
+			{
+				"component": "general",
+				"errorCode": "1878",
+				"formattedMessage": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/Multi_Sign_Wallet.sol\n\n",
+				"message": "SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.",
+				"severity": "warning",
+				"sourceLocation": {
+					"end": -1,
+					"file": "contracts/Multi_Sign_Wallet.sol",
+					"start": -1
+				},
+				"type": "Warning"
+			}
+		],
+		"sources": {
+			"contracts/Multi_Sign_Wallet.sol": {
+				"ast": {
+					"absolutePath": "contracts/Multi_Sign_Wallet.sol",
+					"exportedSymbols": {
+						"MultiSignWallet": [
+							49
+						]
+					},
+					"id": 50,
+					"nodeType": "SourceUnit",
+					"nodes": [
+						{
+							"id": 1,
+							"literals": [
+								"solidity",
+								"^",
+								"0.8",
+								".",
+								"*"
+							],
+							"nodeType": "PragmaDirective",
+							"src": "0:23:0"
+						},
+						{
+							"abstract": false,
+							"baseContracts": [],
+							"contractDependencies": [],
+							"contractKind": "contract",
+							"fullyImplemented": true,
+							"id": 49,
+							"linearizedBaseContracts": [
+								49
+							],
+							"name": "MultiSignWallet",
+							"nameLocation": "34:15:0",
+							"nodeType": "ContractDefinition",
+							"nodes": [
+								{
+									"constant": false,
+									"id": 3,
+									"mutability": "mutable",
+									"name": "_owner",
+									"nameLocation": "73:6:0",
+									"nodeType": "VariableDeclaration",
+									"scope": 49,
+									"src": "57:22:0",
+									"stateVariable": true,
+									"storageLocation": "default",
+									"typeDescriptions": {
+										"typeIdentifier": "t_address",
+										"typeString": "address"
+									},
+									"typeName": {
+										"id": 2,
+										"name": "address",
+										"nodeType": "ElementaryTypeName",
+										"src": "57:7:0",
+										"stateMutability": "nonpayable",
+										"typeDescriptions": {
+											"typeIdentifier": "t_address",
+											"typeString": "address"
+										}
+									},
+									"visibility": "private"
+								},
+								{
+									"constant": false,
+									"id": 7,
+									"mutability": "mutable",
+									"name": "_owners",
+									"nameLocation": "297:7:0",
+									"nodeType": "VariableDeclaration",
+									"scope": 49,
+									"src": "262:42:0",
+									"stateVariable": true,
+									"storageLocation": "default",
+									"typeDescriptions": {
+										"typeIdentifier": "t_mapping$_t_address_$_t_uint8_$",
+										"typeString": "mapping(address => uint8)"
+									},
+									"typeName": {
+										"id": 6,
+										"keyType": {
+											"id": 4,
+											"name": "address",
+											"nodeType": "ElementaryTypeName",
+											"src": "271:7:0",
+											"typeDescriptions": {
+												"typeIdentifier": "t_address",
+												"typeString": "address"
+											}
+										},
+										"nodeType": "Mapping",
+										"src": "262:26:0",
+										"typeDescriptions": {
+											"typeIdentifier": "t_mapping$_t_address_$_t_uint8_$",
+											"typeString": "mapping(address => uint8)"
+										},
+										"valueType": {
+											"id": 5,
+											"name": "uint8",
+											"nodeType": "ElementaryTypeName",
+											"src": "282:5:0",
+											"typeDescriptions": {
+												"typeIdentifier": "t_uint8",
+												"typeString": "uint8"
+											}
+										}
+									},
+									"visibility": "private"
+								},
+								{
+									"constant": true,
+									"id": 10,
+									"mutability": "constant",
+									"name": "MIN_SIGNATURE",
+									"nameLocation": "326:13:0",
+									"nodeType": "VariableDeclaration",
+									"scope": 49,
+									"src": "311:32:0",
+									"stateVariable": true,
+									"storageLocation": "default",
+									"typeDescriptions": {
+										"typeIdentifier": "t_uint8",
+										"typeString": "uint8"
+									},
+									"typeName": {
+										"id": 8,
+										"name": "uint8",
+										"nodeType": "ElementaryTypeName",
+										"src": "311:5:0",
+										"typeDescriptions": {
+											"typeIdentifier": "t_uint8",
+											"typeString": "uint8"
+										}
+									},
+									"value": {
+										"hexValue": "32",
+										"id": 9,
+										"isConstant": false,
+										"isLValue": false,
+										"isPure": true,
+										"kind": "number",
+										"lValueRequested": false,
+										"nodeType": "Literal",
+										"src": "342:1:0",
+										"typeDescriptions": {
+											"typeIdentifier": "t_rational_2_by_1",
+											"typeString": "int_const 2"
+										},
+										"value": "2"
+									},
+									"visibility": "internal"
+								},
+								{
+									"canonicalName": "MultiSignWallet.Transaction",
+									"id": 21,
+									"members": [
+										{
+											"constant": false,
+											"id": 12,
+											"mutability": "mutable",
+											"name": "sender",
+											"nameLocation": "618:6:0",
+											"nodeType": "VariableDeclaration",
+											"scope": 21,
+											"src": "602:22:0",
+											"stateVariable": false,
+											"storageLocation": "default",
+											"typeDescriptions": {
+												"typeIdentifier": "t_address_payable",
+												"typeString": "address payable"
+											},
+											"typeName": {
+												"id": 11,
+												"name": "address",
+												"nodeType": "ElementaryTypeName",
+												"src": "602:15:0",
+												"stateMutability": "payable",
+												"typeDescriptions": {
+													"typeIdentifier": "t_address_payable",
+													"typeString": "address payable"
+												}
+											},
+											"visibility": "internal"
+										},
+										{
+											"constant": false,
+											"id": 14,
+											"mutability": "mutable",
+											"name": "reciever",
+											"nameLocation": "651:8:0",
+											"nodeType": "VariableDeclaration",
+											"scope": 21,
+											"src": "635:24:0",
+											"stateVariable": false,
+											"storageLocation": "default",
+											"typeDescriptions": {
+												"typeIdentifier": "t_address_payable",
+												"typeString": "address payable"
+											},
+											"typeName": {
+												"id": 13,
+												"name": "address",
+												"nodeType": "ElementaryTypeName",
+												"src": "635:15:0",
+												"stateMutability": "payable",
+												"typeDescriptions": {
+													"typeIdentifier": "t_address_payable",
+													"typeString": "address payable"
+												}
+											},
+											"visibility": "internal"
+										},
+										{
+											"constant": false,
+											"id": 16,
+											"mutability": "mutable",
+											"name": "amount",
+											"nameLocation": "675:6:0",
+											"nodeType": "VariableDeclaration",
+											"scope": 21,
+											"src": "670:11:0",
+											"stateVariable": false,
+											"storageLocation": "default",
+											"typeDescriptions": {
+												"typeIdentifier": "t_uint256",
+												"typeString": "uint256"
+											},
+											"typeName": {
+												"id": 15,
+												"name": "uint",
+												"nodeType": "ElementaryTypeName",
+												"src": "670:4:0",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint256",
+													"typeString": "uint256"
+												}
+											},
+											"visibility": "internal"
+										},
+										{
+											"constant": false,
+											"id": 18,
+											"mutability": "mutable",
+											"name": "isSigned",
+											"nameLocation": "697:8:0",
+											"nodeType": "VariableDeclaration",
+											"scope": 21,
+											"src": "692:13:0",
+											"stateVariable": false,
+											"storageLocation": "default",
+											"typeDescriptions": {
+												"typeIdentifier": "t_bool",
+												"typeString": "bool"
+											},
+											"typeName": {
+												"id": 17,
+												"name": "bool",
+												"nodeType": "ElementaryTypeName",
+												"src": "692:4:0",
+												"typeDescriptions": {
+													"typeIdentifier": "t_bool",
+													"typeString": "bool"
+												}
+											},
+											"visibility": "internal"
+										},
+										{
+											"constant": false,
+											"id": 20,
+											"mutability": "mutable",
+											"name": "signatureCount",
+											"nameLocation": "722:14:0",
+											"nodeType": "VariableDeclaration",
+											"scope": 21,
+											"src": "716:20:0",
+											"stateVariable": false,
+											"storageLocation": "default",
+											"typeDescriptions": {
+												"typeIdentifier": "t_uint8",
+												"typeString": "uint8"
+											},
+											"typeName": {
+												"id": 19,
+												"name": "uint8",
+												"nodeType": "ElementaryTypeName",
+												"src": "716:5:0",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint8",
+													"typeString": "uint8"
+												}
+											},
+											"visibility": "internal"
+										}
+									],
+									"name": "Transaction",
+									"nameLocation": "363:11:0",
+									"nodeType": "StructDefinition",
+									"scope": 49,
+									"src": "356:388:0",
+									"visibility": "public"
+								},
+								{
+									"constant": false,
+									"id": 25,
+									"mutability": "mutable",
+									"name": "_transactions",
+									"nameLocation": "766:13:0",
+									"nodeType": "VariableDeclaration",
+									"scope": 49,
+									"src": "752:27:0",
+									"stateVariable": true,
+									"storageLocation": "default",
+									"typeDescriptions": {
+										"typeIdentifier": "t_array$_t_struct$_Transaction_$21_storage_$dyn_storage",
+										"typeString": "struct MultiSignWallet.Transaction[]"
+									},
+									"typeName": {
+										"baseType": {
+											"id": 23,
+											"nodeType": "UserDefinedTypeName",
+											"pathNode": {
+												"id": 22,
+												"name": "Transaction",
+												"nodeType": "IdentifierPath",
+												"referencedDeclaration": 21,
+												"src": "752:11:0"
+											},
+											"referencedDeclaration": 21,
+											"src": "752:11:0",
+											"typeDescriptions": {
+												"typeIdentifier": "t_struct$_Transaction_$21_storage_ptr",
+												"typeString": "struct MultiSignWallet.Transaction"
+											}
+										},
+										"id": 24,
+										"nodeType": "ArrayTypeName",
+										"src": "752:13:0",
+										"typeDescriptions": {
+											"typeIdentifier": "t_array$_t_struct$_Transaction_$21_storage_$dyn_storage_ptr",
+											"typeString": "struct MultiSignWallet.Transaction[]"
+										}
+									},
+									"visibility": "internal"
+								},
+								{
+									"constant": false,
+									"id": 29,
+									"mutability": "mutable",
+									"name": "signed",
+									"nameLocation": "931:6:0",
+									"nodeType": "VariableDeclaration",
+									"scope": 49,
+									"src": "907:30:0",
+									"stateVariable": true,
+									"storageLocation": "default",
+									"typeDescriptions": {
+										"typeIdentifier": "t_mapping$_t_address_$_t_uint8_$",
+										"typeString": "mapping(address => uint8)"
+									},
+									"typeName": {
+										"id": 28,
+										"keyType": {
+											"id": 26,
+											"name": "address",
+											"nodeType": "ElementaryTypeName",
+											"src": "915:7:0",
+											"typeDescriptions": {
+												"typeIdentifier": "t_address",
+												"typeString": "address"
+											}
+										},
+										"nodeType": "Mapping",
+										"src": "907:23:0",
+										"typeDescriptions": {
+											"typeIdentifier": "t_mapping$_t_address_$_t_uint8_$",
+											"typeString": "mapping(address => uint8)"
+										},
+										"valueType": {
+											"id": 27,
+											"name": "uint8",
+											"nodeType": "ElementaryTypeName",
+											"src": "924:5:0",
+											"typeDescriptions": {
+												"typeIdentifier": "t_uint8",
+												"typeString": "uint8"
+											}
+										}
+									},
+									"visibility": "internal"
+								},
+								{
+									"constant": false,
+									"id": 32,
+									"mutability": "mutable",
+									"name": "_pendingTransactions",
+									"nameLocation": "1073:20:0",
+									"nodeType": "VariableDeclaration",
+									"scope": 49,
+									"src": "1058:35:0",
+									"stateVariable": true,
+									"storageLocation": "default",
+									"typeDescriptions": {
+										"typeIdentifier": "t_array$_t_uint256_$dyn_storage",
+										"typeString": "uint256[]"
+									},
+									"typeName": {
+										"baseType": {
+											"id": 30,
+											"name": "uint",
+											"nodeType": "ElementaryTypeName",
+											"src": "1058:4:0",
+											"typeDescriptions": {
+												"typeIdentifier": "t_uint256",
+												"typeString": "uint256"
+											}
+										},
+										"id": 31,
+										"nodeType": "ArrayTypeName",
+										"src": "1058:6:0",
+										"typeDescriptions": {
+											"typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+											"typeString": "uint256[]"
+										}
+									},
+									"visibility": "private"
+								},
+								{
+									"anonymous": false,
+									"id": 38,
+									"name": "DepositFuncds",
+									"nameLocation": "1129:13:0",
+									"nodeType": "EventDefinition",
+									"parameters": {
+										"id": 37,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 34,
+												"indexed": false,
+												"mutability": "mutable",
+												"name": "_from",
+												"nameLocation": "1151:5:0",
+												"nodeType": "VariableDeclaration",
+												"scope": 38,
+												"src": "1143:13:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_address",
+													"typeString": "address"
+												},
+												"typeName": {
+													"id": 33,
+													"name": "address",
+													"nodeType": "ElementaryTypeName",
+													"src": "1143:7:0",
+													"stateMutability": "nonpayable",
+													"typeDescriptions": {
+														"typeIdentifier": "t_address",
+														"typeString": "address"
+													}
+												},
+												"visibility": "internal"
+											},
+											{
+												"constant": false,
+												"id": 36,
+												"indexed": false,
+												"mutability": "mutable",
+												"name": "amount",
+												"nameLocation": "1164:6:0",
+												"nodeType": "VariableDeclaration",
+												"scope": 38,
+												"src": "1159:11:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint256",
+													"typeString": "uint256"
+												},
+												"typeName": {
+													"id": 35,
+													"name": "uint",
+													"nodeType": "ElementaryTypeName",
+													"src": "1159:4:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint256",
+														"typeString": "uint256"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "1142:29:0"
+									},
+									"src": "1123:49:0"
+								},
+								{
+									"anonymous": false,
+									"id": 48,
+									"name": "TransactionCreated",
+									"nameLocation": "1184:18:0",
+									"nodeType": "EventDefinition",
+									"parameters": {
+										"id": 47,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 40,
+												"indexed": false,
+												"mutability": "mutable",
+												"name": "_from",
+												"nameLocation": "1211:5:0",
+												"nodeType": "VariableDeclaration",
+												"scope": 48,
+												"src": "1203:13:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_address",
+													"typeString": "address"
+												},
+												"typeName": {
+													"id": 39,
+													"name": "address",
+													"nodeType": "ElementaryTypeName",
+													"src": "1203:7:0",
+													"stateMutability": "nonpayable",
+													"typeDescriptions": {
+														"typeIdentifier": "t_address",
+														"typeString": "address"
+													}
+												},
+												"visibility": "internal"
+											},
+											{
+												"constant": false,
+												"id": 42,
+												"indexed": false,
+												"mutability": "mutable",
+												"name": "_to",
+												"nameLocation": "1227:3:0",
+												"nodeType": "VariableDeclaration",
+												"scope": 48,
+												"src": "1219:11:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_address",
+													"typeString": "address"
+												},
+												"typeName": {
+													"id": 41,
+													"name": "address",
+													"nodeType": "ElementaryTypeName",
+													"src": "1219:7:0",
+													"stateMutability": "nonpayable",
+													"typeDescriptions": {
+														"typeIdentifier": "t_address",
+														"typeString": "address"
+													}
+												},
+												"visibility": "internal"
+											},
+											{
+												"constant": false,
+												"id": 44,
+												"indexed": false,
+												"mutability": "mutable",
+												"name": "amount",
+												"nameLocation": "1238:6:0",
+												"nodeType": "VariableDeclaration",
+												"scope": 48,
+												"src": "1233:11:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint256",
+													"typeString": "uint256"
+												},
+												"typeName": {
+													"id": 43,
+													"name": "uint",
+													"nodeType": "ElementaryTypeName",
+													"src": "1233:4:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint256",
+														"typeString": "uint256"
+													}
+												},
+												"visibility": "internal"
+											},
+											{
+												"constant": false,
+												"id": 46,
+												"indexed": false,
+												"mutability": "mutable",
+												"name": "transactionId",
+												"nameLocation": "1252:13:0",
+												"nodeType": "VariableDeclaration",
+												"scope": 48,
+												"src": "1247:18:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint256",
+													"typeString": "uint256"
+												},
+												"typeName": {
+													"id": 45,
+													"name": "uint",
+													"nodeType": "ElementaryTypeName",
+													"src": "1247:4:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint256",
+														"typeString": "uint256"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "1202:64:0"
+									},
+									"src": "1178:89:0"
+								}
+							],
+							"scope": 50,
+							"src": "25:1251:0",
+							"usedErrors": []
+						}
+					],
+					"src": "0:1276:0"
+				},
+				"id": 0
+			}
+		}
+	}
+}
