@@ -6,6 +6,11 @@
 	"output": {
 		"abi": [
 			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
 				"anonymous": false,
 				"inputs": [
 					{
@@ -21,7 +26,7 @@
 						"type": "uint256"
 					}
 				],
-				"name": "DepositFuncds",
+				"name": "DepositFunds",
 				"type": "event"
 			},
 			{
@@ -104,6 +109,155 @@
 				],
 				"name": "TransactionSigned",
 				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					}
+				],
+				"name": "addOwner",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "deposite",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getPendingTransactions",
+				"outputs": [
+					{
+						"internalType": "uint256[]",
+						"name": "",
+						"type": "uint256[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "getTransaction",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "address payable",
+								"name": "sender",
+								"type": "address"
+							},
+							{
+								"internalType": "address payable",
+								"name": "reciever",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "amount",
+								"type": "uint256"
+							},
+							{
+								"internalType": "bool",
+								"name": "isSigned",
+								"type": "bool"
+							},
+							{
+								"internalType": "uint8",
+								"name": "signatureCount",
+								"type": "uint8"
+							}
+						],
+						"internalType": "struct MultiSignWallet.Transaction",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					}
+				],
+				"name": "removeOwner",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "selectedTransactionBalance",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "signTransaction",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address payable",
+						"name": "_reciever",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_amount",
+						"type": "uint256"
+					}
+				],
+				"name": "transferTo",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "withDraw",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -134,10 +288,10 @@
 	},
 	"sources": {
 		"contracts/Multi_Sign_Wallet.sol": {
-			"keccak256": "0x4a022d6d362d80d91d2bb12cb1258e262871f4c808bf53cef0088971d4cd08c6",
+			"keccak256": "0xc9794875e826fc2e4bce9c75d066e82894d721d47daa000735c5617d138e3bb1",
 			"urls": [
-				"bzz-raw://99c1845924a5119124775f87d80d06f2c84019bcbb1d8728dd43ced717d90a0b",
-				"dweb:/ipfs/QmZZnynEoFLBe8ySe1rf8cMtCtFJfSWEBrNAGRiNE8f15Z"
+				"bzz-raw://65593604cb05271da6013f24be5021ce8d9895199b099e905e4ff0ece6b66320",
+				"dweb:/ipfs/QmWcGGGcRQTNYAYAqWdnM2cbr83yrLPBgGmomTjXs94vqV"
 			]
 		}
 	},
